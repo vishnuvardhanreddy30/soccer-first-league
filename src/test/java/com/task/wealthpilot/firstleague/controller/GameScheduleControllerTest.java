@@ -55,4 +55,13 @@ public class GameScheduleControllerTest {
                 ))
                 .build();
     }
+
+    @Test
+    public void generateScheduleTest_Exception() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/generate-schedule")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(leagueRequest()))
+        ).andExpect(status().isCreated());
+    }
 }

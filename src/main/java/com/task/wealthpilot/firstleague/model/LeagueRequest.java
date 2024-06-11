@@ -6,6 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
+/**
+ * Request object for generating a game schedule.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

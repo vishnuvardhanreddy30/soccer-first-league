@@ -13,6 +13,9 @@ import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Mapper of the GameScheduleService and GameScheduleMultipleMatchesService.
+ */
 @Component
 public class GameScheduleMapper {
     @Value("${league.break.weeks}")
@@ -23,7 +26,7 @@ public class GameScheduleMapper {
 
     private final AtomicInteger index = new AtomicInteger(1);
 
-    public IntUnaryOperator calculateStartDate = (currentIndex) -> {
+    private IntUnaryOperator calculateStartDate = (currentIndex) -> {
         if (currentIndex == league_matches) {
             index.set(1);
             return 1;
