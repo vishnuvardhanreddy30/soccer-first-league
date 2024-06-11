@@ -23,7 +23,7 @@ public class GameScheduleServiceImpl implements GameScheduleService {
     private final List<String> schedule;
 
     @Value("${league.start.date}")
-    private String leagueStartDate;
+    String leagueStartDate;
 
     @Override
     public LeagueResponse generateSchedule(List<Team> teams) {

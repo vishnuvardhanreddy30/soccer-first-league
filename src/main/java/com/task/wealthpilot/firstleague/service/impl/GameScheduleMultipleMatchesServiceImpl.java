@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 public class GameScheduleMultipleMatchesServiceImpl implements GameScheduleMultipleMatchesService {
     @Value("${league.start.date}")
-    private String leagueStartDate;
+    String leagueStartDate;
     private final GameScheduleMapper gameScheduleMapper;
     private final List<String> schedule;
 

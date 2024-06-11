@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntUnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Component
 public class GameScheduleMapper {
@@ -19,7 +21,7 @@ public class GameScheduleMapper {
     @Value("${league.matches.per.saturday}")
     private int league_matches;
 
-    private AtomicInteger index = new AtomicInteger(1);
+    private final AtomicInteger index = new AtomicInteger(1);
 
     public IntUnaryOperator calculateStartDate = (currentIndex) -> {
         if (currentIndex == league_matches) {
@@ -32,12 +34,11 @@ public class GameScheduleMapper {
     };
 
     public List<String> generateMatches(List<Team> teams) {
-        List<String> matches = new ArrayList<>();
-        for (int i = 0; i < teams.size(); i++) {
-            for (int j = i + 1; j < teams.size(); j++) {
-                matches.add(teams.get(i).getName() + " vs " + teams.get(j).getName());
-            }
-        }
+        List<String> matches = IntStream.range(0, teams.size())
+                .boxed()
+                .flatMap(i -> IntStream.range(i + 1, teams.size())
+                        .mapToObj(j -> teams.get(i).getName() + " vs " + teams.get(j).getName()))
+                .collect(Collectors.toList());
         Collections.shuffle(matches); // Shuffle matches for randomness
         return matches;
     }
