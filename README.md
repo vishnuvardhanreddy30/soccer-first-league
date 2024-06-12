@@ -8,6 +8,8 @@ This Spring Boot application generates a game schedule for a soccer league. The 
 - Games are scheduled only on Saturdays.
 - A 3-week break is implemented between the first and second legs.
 - Support for scheduling multiple games on the same Saturday.
+  - The number of matches per day can be set either via configuration or through the REST API, offering flexibility based on the requirement.
+  - For now matches per day are fed from application.properties
 - JSON input for team information.
 
 ### Prerequisites

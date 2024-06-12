@@ -10,4 +10,12 @@ public class DateUtil {
     public static String formatDate(LocalDate date) {
         return date.format(formatter);
     }
+
+    public static LocalDate getNextSaturday(String leagueStartDate) {
+        return LocalDate.parse(leagueStartDate).with(DayOfWeek.SATURDAY);
+    }
+
+    public static LocalDate addWeeks(LocalDate date, int weeks) {
+        return date.plusWeeks(weeks);
+    }
 }

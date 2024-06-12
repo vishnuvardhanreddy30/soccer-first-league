@@ -4,7 +4,6 @@ import com.task.wealthpilot.firstleague.model.Team;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,15 +17,13 @@ import java.util.stream.IntStream;
  */
 @Component
 public class GameScheduleMapper {
-    @Value("${league.break.weeks}")
-    private int breakWeeks;
 
     @Value("${league.matches.per.saturday}")
     private int league_matches;
 
     private final AtomicInteger index = new AtomicInteger(1);
 
-    private IntUnaryOperator calculateStartDate = (currentIndex) -> {
+    private final IntUnaryOperator calculateStartDate = (currentIndex) -> {
         if (currentIndex == league_matches) {
             index.set(1);
             return 1;
@@ -52,10 +49,6 @@ public class GameScheduleMapper {
             reversed.add(teams[1] + " vs " + teams[0]);
         }
         return reversed;
-    }
-
-    public LocalDate breakWeeks(LocalDate NEW_START_DATE) {
-        return NEW_START_DATE.plusWeeks(breakWeeks);
     }
 
     public int calculateNewStartDate() {
