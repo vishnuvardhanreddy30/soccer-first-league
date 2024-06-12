@@ -15,6 +15,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Implementation of the GameScheduleMultipleMatchesService.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j

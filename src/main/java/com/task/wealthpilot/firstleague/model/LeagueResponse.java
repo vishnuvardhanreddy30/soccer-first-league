@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Response object containing the generated game schedule.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

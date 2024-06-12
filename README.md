@@ -55,6 +55,18 @@ This Spring Boot application generates a game schedule for a soccer league. The 
     POST /api/generate-schedule-multiple
     ```
 
+- **Swagger:**
+
+  ```
+  http://{localhost:8080}/swagger-ui/index.html
+  ```
+
+- **OpenAPI:**
+
+  ```
+  http://{localhost:8080}/api-docs
+  ```
+
 ## Example JSON Format
 
 The JSON file `soccer_teams.json` should have the following format:
