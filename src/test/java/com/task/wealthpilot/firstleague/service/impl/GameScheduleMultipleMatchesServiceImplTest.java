@@ -30,21 +30,22 @@ public class GameScheduleMultipleMatchesServiceImplTest {
 
     @Value("${league.start.date}")
     private String leagueStartDate;
+    @Value("${league.break.weeks}")
+    int breakWeeks;
     @Mock
     private GameScheduleMapper gameScheduleMapper;
 
     @InjectMocks
     private GameScheduleMultipleMatchesServiceImpl gameScheduleService;
 
-    private List<String> schedule;
-
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        schedule = new ArrayList<>();
+        List<String> schedule = new ArrayList<>();
         gameScheduleService = new GameScheduleMultipleMatchesServiceImpl(gameScheduleMapper, schedule);
         gameScheduleService.leagueStartDate = leagueStartDate;
+        gameScheduleService.breakWeeks = breakWeeks;
     }
 
     @Test
@@ -66,14 +67,12 @@ public class GameScheduleMultipleMatchesServiceImplTest {
 
         when(gameScheduleMapper.generateMatches(teams)).thenReturn(firstLegMatches);
         when(gameScheduleMapper.generateReverseFixtures(firstLegMatches)).thenReturn(secondLegMatches);
-        when(gameScheduleMapper.breakWeeks(any())).thenAnswer(invocation -> invocation.getArgument(0, LocalDate.class).plusWeeks(3));
         when(gameScheduleMapper.calculateNewStartDate()).thenReturn(1);
 
         LeagueResponse response = gameScheduleService.generateScheduleMultipleMatchesPerWeek(teams);
 
         verify(gameScheduleMapper, times(1)).generateMatches(teams);
         verify(gameScheduleMapper, times(1)).generateReverseFixtures(firstLegMatches);
-        verify(gameScheduleMapper, times(1)).breakWeeks(any(LocalDate.class));
         verify(gameScheduleMapper, times(8)).calculateNewStartDate();
 
         List<String> expectedSchedule = new ArrayList<>();

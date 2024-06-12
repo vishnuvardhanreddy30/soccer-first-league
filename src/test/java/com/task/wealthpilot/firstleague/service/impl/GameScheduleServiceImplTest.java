@@ -35,15 +35,16 @@ public class GameScheduleServiceImplTest {
 
     @Value("${league.start.date}")
     private String leagueStartDate;
-
-    private List<String> schedule;
+    @Value("${league.break.weeks}")
+    int breakWeeks;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        schedule = new ArrayList<>();
+        List<String> schedule = new ArrayList<>();
         gameScheduleService = new GameScheduleServiceImpl(gameScheduleMapper, schedule);
         gameScheduleService.leagueStartDate = leagueStartDate;
+        gameScheduleService.breakWeeks = breakWeeks;
     }
 
     @Test
@@ -60,13 +61,11 @@ public class GameScheduleServiceImplTest {
 
         when(gameScheduleMapper.generateMatches(teams)).thenReturn(firstLegMatches);
         when(gameScheduleMapper.generateReverseFixtures(firstLegMatches)).thenReturn(secondLegMatches);
-        when(gameScheduleMapper.breakWeeks(any())).thenAnswer(invocation -> invocation.getArgument(0, LocalDate.class).plusWeeks(3));
 
         LeagueResponse response = gameScheduleService.generateSchedule(teams);
 
         verify(gameScheduleMapper, times(1)).generateMatches(teams);
         verify(gameScheduleMapper, times(1)).generateReverseFixtures(firstLegMatches);
-        verify(gameScheduleMapper, times(1)).breakWeeks(any(LocalDate.class));
 
         List<String> expectedSchedule = new ArrayList<>();
         LocalDate startDate = LocalDate.parse(leagueStartDate).with(java.time.DayOfWeek.SATURDAY);

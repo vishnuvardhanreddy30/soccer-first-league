@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -28,31 +27,24 @@ public class GameScheduleServiceImpl implements GameScheduleService {
     @Value("${league.start.date}")
     String leagueStartDate;
 
+    @Value("${league.break.weeks}")
+    Integer breakWeeks;
+
     @Override
     public LeagueResponse generateSchedule(List<Team> teams) {
         try {
-
-            LocalDate START_DATE = LocalDate.parse(leagueStartDate).with(DayOfWeek.SATURDAY);
+            LocalDate START_DATE = DateUtil.getNextSaturday(leagueStartDate);
 
             // Generate matches with Round-robin for the first leg
             List<String> firstLegMatches = gameScheduleMapper.generateMatches(teams);
-            // First leg
-            for (String match : firstLegMatches) {
-                schedule.add(DateUtil.formatDate(START_DATE) + " " + match);
-                START_DATE = START_DATE.plusWeeks(1);
-            }
+            addMatchesToSchedule(firstLegMatches, START_DATE);
 
             // Break between legs
-            START_DATE = gameScheduleMapper.breakWeeks(START_DATE);
+            START_DATE = DateUtil.addWeeks(START_DATE, breakWeeks+firstLegMatches.size());
 
             // Generate matches for the second leg (reversed fixtures)
             List<String> secondLegMatches = gameScheduleMapper.generateReverseFixtures(firstLegMatches);
-
-            // Second leg with reversed fixtures
-            for (String match : secondLegMatches) {
-                schedule.add(DateUtil.formatDate(START_DATE) + " " + match);
-                START_DATE = START_DATE.plusWeeks(1);
-            }
+            addMatchesToSchedule(secondLegMatches, START_DATE);
 
             // Output the schedule
             schedule.forEach(System.out::println);
@@ -62,6 +54,12 @@ public class GameScheduleServiceImpl implements GameScheduleService {
             log.error("Error generating schedule: {}", ex.getMessage(), ex);
             // Throw a custom exception
             throw new GameScheduleServiceException("Error generating schedule. Please try again later.");
+        }
+    }
+    private void addMatchesToSchedule(List<String> matches, LocalDate startDate) {
+        for (String match : matches) {
+            schedule.add(DateUtil.formatDate(startDate) + " " + match);
+            startDate = startDate.plusWeeks(1);
         }
     }
 }
