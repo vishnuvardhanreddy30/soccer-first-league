@@ -92,7 +92,7 @@ public class GameScheduleServiceImplTest {
 
     private LeagueRequest leagueRequest() {
         return LeagueRequest.builder()
-                .league("Wealthpilot first league")
+                .league("Soccer first league")
                 .country("Germany")
                 .teams(Arrays.asList(
                         Team.builder().name("Volksbank Kickers").foundingDate("1998").build(),

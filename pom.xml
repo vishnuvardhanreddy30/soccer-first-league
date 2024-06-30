@@ -8,11 +8,11 @@
 		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.task.wealthpilot.league</groupId>
-	<artifactId>Wealthpilot-first-league</artifactId>
+	<groupId>com.task.soccer.league</groupId>
+	<artifactId>soccer-first-league</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Wealthpilot-first-league</name>
-	<description>Wealth pilot first league project to determine the best teams</description>
+	<name>soccer-first-league</name>
+	<description>soccer first league project to determine the best teams</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

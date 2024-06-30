@@ -16,18 +16,18 @@ public class OpenAPIConfig {
 
         return new OpenAPI()
                 .info(new Info()
-                        .title("Wealthpilot First League API")
-                        .description("API for generating game schedules for the Wealthpilot First League")
+                        .title("Soccer First League API")
+                        .description("API for generating game schedules for the Soccer First League")
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Support Team")
-                                .email("support@wealthpilot.com")
-                                .url("https://www.wealthpilot.com"))
+                                .email("support@soccer.com")
+                                .url("https://www.soccer.com"))
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
-                        .description("Refer the Wealthpilot first league GitHub")
-                        .url("https://github.com/vishnuvardhanreddy30/wealthpilot-first-league"));
+                        .description("Refer the Soccer first league GitHub")
+                        .url("https://github.com/vishnuvardhanreddy30/soccer-first-league"));
     }
 }
