@@ -1,4 +1,4 @@
-# wealthpilot-first-league
+# soccer-first-league
 
 This Spring Boot application generates a game schedule for a soccer league. The schedule is generated based on rules similar to German Bundesliga's.
 
@@ -22,13 +22,13 @@ This Spring Boot application generates a game schedule for a soccer league. The 
 1. Clone the repository:
 
     ```bash
-    git clone git@github.com:vishnuvardhanreddy30/wealthpilot-first-league.git
+    git clone git@github.com:vishnuvardhanreddy30/soccer-first-league.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd wealthpilot-first-league
+    cd soccer-first-league
     ```
 
 3. Build the project with Maven:
@@ -75,7 +75,7 @@ The JSON file `soccer_teams.json` should have the following format:
 
 ``` 
   {
-    "league": "Wealthpilot first league",
+    "league": "soccer first league",
 
     "country": "Germany",
     "teams": [
